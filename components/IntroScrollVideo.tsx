@@ -117,12 +117,8 @@ export default function IntroScrollVideo() {
         });
       }
 
-      if (!titleOverlay || !scrollOverlay) {
-        return;
-      }
-
       if (progress < 0.01) {
-        gsap.set([titleOverlay, scrollOverlay], {
+        gsap.set([titleOverlay, scrollOverlay].filter(Boolean), {
           autoAlpha: 1,
           xPercent: 0,
           yPercent: 0,
@@ -133,19 +129,23 @@ export default function IntroScrollVideo() {
 
       const overlayProgress = gsap.utils.clamp(0, 1, (progress - 0.01) / 0.22);
 
-      gsap.set(titleOverlay, {
-        autoAlpha: 1 - overlayProgress,
-        xPercent: -18 * overlayProgress,
-        yPercent: -38 * overlayProgress,
-        scale: 1 + 0.2 * overlayProgress,
-      });
+      if (titleOverlay) {
+        gsap.set(titleOverlay, {
+          autoAlpha: 1 - overlayProgress,
+          xPercent: -18 * overlayProgress,
+          yPercent: -38 * overlayProgress,
+          scale: 1 + 0.2 * overlayProgress,
+        });
+      }
 
-      gsap.set(scrollOverlay, {
-        autoAlpha: 1 - overlayProgress,
-        xPercent: 18 * overlayProgress,
-        yPercent: 44 * overlayProgress,
-        scale: 1 + 0.16 * overlayProgress,
-      });
+      if (scrollOverlay) {
+        gsap.set(scrollOverlay, {
+          autoAlpha: 1 - overlayProgress,
+          xPercent: 18 * overlayProgress,
+          yPercent: 44 * overlayProgress,
+          scale: 1 + 0.16 * overlayProgress,
+        });
+      }
     };
 
     const updateVideoTime = (progress: number) => {
@@ -352,7 +352,7 @@ export default function IntroScrollVideo() {
 
           <div
             ref={scrollOverlayRef}
-            className="pointer-events-none absolute bottom-[7.222%] right-[6.042%] w-[36.51%] origin-right"
+            className="pointer-events-none absolute bottom-0 right-0 w-[36.5104%] origin-right"
           >
             <img
               src="/scroll-overlay.png"
