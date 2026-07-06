@@ -341,7 +341,7 @@ export default function IntroScrollVideo() {
 
           <div
             ref={titleOverlayRef}
-            className="pointer-events-none absolute left-0 top-0 w-[59.688%] origin-left"
+            className="pointer-events-none absolute left-0 top-0 w-[59.6875%] origin-left"
           >
             <img
               src="/title-overlay.png"
