@@ -24,7 +24,6 @@ export default function IntroScrollVideo() {
   const aboutStageRef = useRef<HTMLDivElement | null>(null);
   const projectsVideoRef = useRef<HTMLVideoElement | null>(null);
   const projectsMenuRef = useRef<HTMLDivElement | null>(null);
-  const [isReady, setIsReady] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   useEffect(() => {
@@ -40,6 +39,33 @@ export default function IntroScrollVideo() {
     let projectsDuration = 0;
     let rafId = 0;
     let projectsRafId = 0;
+    let hasTriedMobileUnlock = false;
+
+    const unlockMobileVideo = () => {
+      if (hasTriedMobileUnlock) {
+        return;
+      }
+
+      hasTriedMobileUnlock = true;
+
+      [video, projectsVideo].forEach((item) => {
+        item.muted = true;
+        item.playsInline = true;
+        item.load();
+
+        const playAttempt = item.play();
+
+        if (playAttempt) {
+          playAttempt
+            .then(() => {
+              item.pause();
+            })
+            .catch(() => {
+              item.pause();
+            });
+        }
+      });
+    };
 
     const updateOverlayMotion = (progress: number) => {
       const titleOverlay = titleOverlayRef.current;
@@ -181,7 +207,6 @@ export default function IntroScrollVideo() {
       duration = video.duration;
       video.pause();
       video.currentTime = 0;
-      setIsReady(true);
       trigger.refresh();
     };
 
@@ -190,9 +215,6 @@ export default function IntroScrollVideo() {
     } else {
       video.addEventListener("loadedmetadata", handleMetadata, { once: true });
     }
-
-    const handleCanPlay = () => setIsReady(true);
-    video.addEventListener("canplay", handleCanPlay);
 
     const handleProjectsMetadata = () => {
       projectsDuration = projectsVideo.duration;
@@ -209,12 +231,18 @@ export default function IntroScrollVideo() {
       });
     }
 
+    video.load();
+    projectsVideo.load();
+    window.addEventListener("touchstart", unlockMobileVideo, { once: true });
+    window.addEventListener("scroll", unlockMobileVideo, { once: true, passive: true });
+
     return () => {
       cancelAnimationFrame(rafId);
       cancelAnimationFrame(projectsRafId);
       video.removeEventListener("loadedmetadata", handleMetadata);
-      video.removeEventListener("canplay", handleCanPlay);
       projectsVideo.removeEventListener("loadedmetadata", handleProjectsMetadata);
+      window.removeEventListener("touchstart", unlockMobileVideo);
+      window.removeEventListener("scroll", unlockMobileVideo);
       trigger.kill();
     };
   }, []);
@@ -223,6 +251,12 @@ export default function IntroScrollVideo() {
     <section ref={sectionRef} className="relative h-[900vh] bg-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div className="absolute left-1/2 top-1/2 aspect-video w-screen -translate-x-1/2 -translate-y-1/2 overflow-hidden">
+          <img
+            src="/intro-poster.png"
+            alt=""
+            className="pointer-events-none absolute inset-0 h-full w-full object-fill"
+          />
+
           <video
             ref={videoRef}
             className="absolute inset-0 h-full w-full origin-center object-fill will-change-transform"
@@ -232,12 +266,6 @@ export default function IntroScrollVideo() {
             muted
             playsInline
             aria-label="Intro video"
-          />
-
-          <div
-            className={`pointer-events-none absolute inset-0 bg-black transition-opacity duration-700 ${
-              isReady ? "opacity-0" : "opacity-100"
-            }`}
           />
 
           <div
@@ -313,7 +341,7 @@ export default function IntroScrollVideo() {
 
           <div
             ref={titleOverlayRef}
-            className="pointer-events-none absolute left-[6.667%] top-[10.925%] w-[59.688%] origin-left"
+            className="pointer-events-none absolute left-0 top-0 w-[59.688%] origin-left"
           >
             <img
               src="/title-overlay.png"
