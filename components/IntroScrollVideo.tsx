@@ -222,49 +222,49 @@ export default function IntroScrollVideo() {
   return (
     <section ref={sectionRef} className="relative h-[900vh] bg-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <video
-          ref={videoRef}
-          className="h-full w-full origin-center object-cover will-change-transform"
-          src="/intro.mp4.mp4"
-          poster="/intro-poster.png"
-          preload="auto"
-          muted
-          playsInline
-          aria-label="Intro video"
-        />
-
-        <div
-          className={`pointer-events-none absolute inset-0 bg-black transition-opacity duration-700 ${
-            isReady ? "opacity-0" : "opacity-100"
-          }`}
-        />
-
-        <div
-          ref={aboutStageRef}
-          className="pointer-events-none absolute inset-0 opacity-0"
-        >
-          <img
-            src="/about-bg.png"
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
+        <div className="absolute left-1/2 top-1/2 aspect-video w-screen -translate-x-1/2 -translate-y-1/2 overflow-hidden">
+          <video
+            ref={videoRef}
+            className="absolute inset-0 h-full w-full origin-center object-fill will-change-transform"
+            src="/intro.mp4.mp4"
+            poster="/intro-poster.png"
+            preload="auto"
+            muted
+            playsInline
+            aria-label="Intro video"
           />
-        </div>
 
-        <video
-          ref={projectsVideoRef}
-          className="absolute inset-0 h-full w-full object-cover opacity-0"
-          src="/intro-to-projects.mp4"
-          preload="auto"
-          muted
-          playsInline
-          aria-label="Projects intro video"
-        />
+          <div
+            className={`pointer-events-none absolute inset-0 bg-black transition-opacity duration-700 ${
+              isReady ? "opacity-0" : "opacity-100"
+            }`}
+          />
 
-        <div
-          ref={projectsMenuRef}
-          className="absolute inset-0 opacity-0"
-        >
-          <div className="absolute left-1/2 top-1/2 h-[max(100vh,56.25vw)] w-[max(100vw,177.777778vh)] -translate-x-1/2 -translate-y-1/2 [container-type:size]">
+          <div
+            ref={aboutStageRef}
+            className="pointer-events-none absolute inset-0 opacity-0"
+          >
+            <img
+              src="/about-bg.png"
+              alt=""
+              className="absolute inset-0 h-full w-full object-fill"
+            />
+          </div>
+
+          <video
+            ref={projectsVideoRef}
+            className="absolute inset-0 h-full w-full object-fill opacity-0"
+            src="/intro-to-projects.mp4"
+            preload="auto"
+            muted
+            playsInline
+            aria-label="Projects intro video"
+          />
+
+          <div
+            ref={projectsMenuRef}
+            className="absolute inset-0 opacity-0 [container-type:size]"
+          >
             <img
               src="/projects-menu.png"
               alt="Projects menu"
@@ -310,28 +310,28 @@ export default function IntroScrollVideo() {
               </Link>
             ))}
           </div>
-        </div>
 
-        <div
-          ref={titleOverlayRef}
-          className="pointer-events-none absolute left-[clamp(24px,6.5vw,128px)] top-[clamp(56px,10.8vh,118px)] w-[min(74vw,1077px)] origin-left md:w-[min(56vw,1077px)]"
-        >
-          <img
-            src="/title-overlay.png"
-            alt=""
-            className="block h-auto w-full animate-[overlayFadeIn_1.1s_ease-out_0.12s_both] object-contain"
-          />
-        </div>
+          <div
+            ref={titleOverlayRef}
+            className="pointer-events-none absolute left-[6.667%] top-[10.925%] w-[56.094%] origin-left"
+          >
+            <img
+              src="/title-overlay.png"
+              alt=""
+              className="block h-auto w-full animate-[overlayFadeIn_1.1s_ease-out_0.12s_both] object-contain"
+            />
+          </div>
 
-        <div
-          ref={scrollOverlayRef}
-          className="pointer-events-none absolute bottom-[clamp(36px,7.8vh,92px)] right-[clamp(22px,6vw,116px)] w-[min(64vw,520px)] origin-right md:w-[min(38vw,701px)]"
-        >
-          <img
-            src="/scroll-overlay.png"
-            alt=""
-            className="block h-auto w-full animate-[overlayFadeIn_1.1s_ease-out_0.28s_both] object-contain"
-          />
+          <div
+            ref={scrollOverlayRef}
+            className="pointer-events-none absolute bottom-[7.222%] right-[6.042%] w-[36.51%] origin-right"
+          >
+            <img
+              src="/scroll-overlay.png"
+              alt=""
+              className="block h-auto w-full animate-[overlayFadeIn_1.1s_ease-out_0.28s_both] object-contain"
+            />
+          </div>
         </div>
       </div>
     </section>

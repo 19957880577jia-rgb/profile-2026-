@@ -122,10 +122,10 @@ export default function Project2DetailPage() {
 
       <section
         aria-label="被困在时间里的美食家"
-        className="mx-auto w-full max-w-[1920px]"
+        className="mx-auto w-full"
       >
         <h1 className="sr-only">被困在时间里的美食家</h1>
-        <div className="relative mx-auto w-full max-w-full">
+        <div className="relative mx-auto w-full">
           <video
             ref={gameVideoRef}
             className={`absolute object-cover ${
@@ -185,7 +185,7 @@ export default function Project2DetailPage() {
           <img
             src="/project2/project2.png"
             alt="被困在时间里的美食家"
-            className="pointer-events-none relative z-10 mx-auto block h-auto w-full max-w-full"
+            className="pointer-events-none relative z-10 mx-auto block h-auto w-full"
           />
 
           {mediaLayers.map((layer) => (

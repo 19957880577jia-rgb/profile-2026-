@@ -43,11 +43,11 @@ export default function ProjectDetailPage({
         </Link>
       </header>
 
-      <section aria-label={title} className="mx-auto w-full max-w-[1920px]">
+      <section aria-label={title} className="mx-auto w-full">
         <h1 className="sr-only">{title}</h1>
         {hasLayeredCover ? (
           <>
-            <div className="relative mx-auto w-full max-w-full">
+            <div className="relative mx-auto w-full">
               {layers.map((layer) => (
                 <img
                   key={layer.src}
@@ -85,7 +85,7 @@ export default function ProjectDetailPage({
               <img
                 src={images[0]}
                 alt={`${title} 1`}
-                className="relative z-10 mx-auto block h-auto w-full max-w-full"
+                className="relative z-10 mx-auto block h-auto w-full"
               />
             </div>
             {images.slice(1).map((src, index) => (
@@ -93,7 +93,7 @@ export default function ProjectDetailPage({
                 key={src}
                 src={src}
                 alt={`${title} ${index + 2}`}
-                className="mx-auto block h-auto w-full max-w-full"
+                className="mx-auto block h-auto w-full"
               />
             ))}
           </>
@@ -103,7 +103,7 @@ export default function ProjectDetailPage({
               key={src}
               src={src}
               alt={`${title} ${index + 1}`}
-              className="mx-auto block h-auto w-full max-w-full"
+              className="mx-auto block h-auto w-full"
             />
           ))
         )}
